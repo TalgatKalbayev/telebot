@@ -10,7 +10,7 @@ CHAT_ID = 752586577
 START_DATE = date(2026, 4, 4)
 START_AMOUNT = 940
 STEP = 10
-REMIND_TIME = "12:30"
+REMIND_TIME = "12:35"
 DATA_FILE = "data.json"
 
 bot = Bot(token=TOKEN)
@@ -54,7 +54,8 @@ async def process_callback(callback: types.CallbackQuery):
     amount = calculate_amount()
 
     if callback.data == "paid":
-        data["debt"] -= amount
+        if data["debt"] > 0:
+            data["debt"] -= amount
         text = f"✅ Принято! Долг теперь: {data['debt']} тг"
     elif callback.data == "not_paid":
         data["debt"] += amount
