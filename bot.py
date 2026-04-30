@@ -10,7 +10,7 @@ CHAT_ID = 752586577
 START_DATE = date(2026, 4, 4)
 START_AMOUNT = 940
 STEP = 10
-REMIND_TIME = "17:10"
+REMIND_TIME = "17:20"
 DATA_FILE = "data.json"
 
 bot = Bot(token=TOKEN)
