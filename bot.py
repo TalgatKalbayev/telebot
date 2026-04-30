@@ -10,7 +10,7 @@ CHAT_ID = 752586577
 START_DATE = date(2026, 4, 4)
 START_AMOUNT = 940
 STEP = 10
-REMIND_TIME = "12:35"
+REMIND_TIME = "12:47"
 DATA_FILE = "data.json"
 
 bot = Bot(token=TOKEN)
@@ -42,7 +42,8 @@ def calculate_amount():
 def get_keyboard():
     kb = InlineKeyboardMarkup(inline_keyboard=[
         [InlineKeyboardButton(text="✅ Оплатил", callback_data="paid")],
-        [InlineKeyboardButton(text="❌ Не оплатил", callback_data="not_paid")]
+        [InlineKeyboardButton(text="❌ Не оплатил", callback_data="not_paid")],
+        [InlineKeyboardButton(text="💵 Оплатил весь долг", callback_data="paid_all")]
     ])
     return kb
 
@@ -54,12 +55,19 @@ async def process_callback(callback: types.CallbackQuery):
     amount = calculate_amount()
 
     if callback.data == "paid":
-        if data["debt"] > 0:
-            data["debt"] -= amount
-        text = f"✅ Принято! Долг теперь: {data['debt']} тг"
+        # Сегодняшний день оплачен, долг не меняется
+        text = f"✅ Сегодня засчитано! Текущий долг: {data['debt']} тг"
+
     elif callback.data == "not_paid":
+        # Добавляем сумму дня в долг
         data["debt"] += amount
         text = f"❌ Добавлено в долг. Долг теперь: {data['debt']} тг"
+
+    elif callback.data == "paid_all":
+        # Полное погашение долга
+        data["debt"] = 0
+        text = f"💵 Весь долг погашен! Долг теперь: 0 тг"
+
     else:
         return
 
