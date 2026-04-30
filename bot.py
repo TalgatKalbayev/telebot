@@ -5,7 +5,7 @@ from datetime import datetime, date
 import json
 import os
 
-TOKEN = "8421225379:AAHG1VDcJrNsz1P5PokcFCuQJZiQWG5g1Mg"
+TOKEN = "8421225379:AAHL1feuSSm8PYAND7_NZWF6ksFvOJF8E44"
 CHAT_ID = 752586577
 START_DATE = date(2026, 4, 4)
 START_AMOUNT = 940
